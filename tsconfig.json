@@ -4,13 +4,6 @@
     "module": "commonjs",
     "target": "es2019",
     "esModuleInterop": true,
-    "allowJs": true,
-    "rootDir": "src",
-    "baseUrl": "src",
-    "paths": {
-      "@/*": ["*"]
-    },
-    "resolveJsonModule": true
-  },
-  "include": ["src"]
+    "allowJs": true
+  }
 }
