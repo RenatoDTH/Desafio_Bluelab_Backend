@@ -80,6 +80,16 @@ class UserController {
 
     return response.status(200).json(oneUser);
   }
+
+  async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const usersRepository = getCustomRepository(UserRepository);
+
+    await usersRepository.delete(id);
+
+    return response.json('Usuário deletado com sucesso');
+  }
 }
 
 export { UserController };
