@@ -32,7 +32,7 @@ class UserController {
     try {
       await schema.validate(data, { abortEarly: false });
     } catch (err) {
-      throw new AppError(err);
+      throw new AppError(err.message);
     }
 
     const usersRepository = getCustomRepository(UserRepository);
@@ -41,7 +41,7 @@ class UserController {
     });
 
     if (phoneAlreadyExists) {
-      throw new AppError('Phone already exists!');
+      throw new AppError('Telefone já existente!');
     }
 
     const cpfAlreadyExists = await usersRepository.findOne({
@@ -49,7 +49,7 @@ class UserController {
     });
 
     if (cpfAlreadyExists) {
-      throw new AppError('CPF already exists!');
+      throw new AppError('CPF já existente!');
     }
 
     const user = usersRepository.create(data);

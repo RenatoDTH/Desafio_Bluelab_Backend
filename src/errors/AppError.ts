@@ -1,5 +1,3 @@
-import { string } from 'yup/lib/locale';
-
 export class AppError {
   public readonly message: string;
 
