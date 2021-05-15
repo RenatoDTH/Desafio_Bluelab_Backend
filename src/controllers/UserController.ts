@@ -61,8 +61,24 @@ class UserController {
 
   async index(request: Request, response: Response): Promise<Response> {
     const usersRepository = getCustomRepository(UserRepository);
+
     const userList = await usersRepository.find();
-    return response.json(userList);
+
+    return response.status(200).json(userList);
+  }
+
+  async showByUser(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const usersRepository = getCustomRepository(UserRepository);
+
+    const oneUser = await usersRepository.findOne(id);
+
+    if (!oneUser) {
+      throw new AppError('Usuário não encontrado!');
+    }
+
+    return response.status(200).json(oneUser);
   }
 }
 
