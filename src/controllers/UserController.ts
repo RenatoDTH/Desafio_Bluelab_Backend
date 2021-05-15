@@ -90,6 +90,33 @@ class UserController {
 
     return response.json('Usuário deletado com sucesso');
   }
+
+  async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const { phone } = request.body;
+
+    const usersRepository = getCustomRepository(UserRepository);
+
+    const user = await usersRepository.findOne(id);
+
+    if (!user) {
+      throw new AppError('Usuário não encontrado!');
+    }
+
+    const updatedUser = {
+      id: user.id,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      phone,
+      cpf: user.cpf,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+    };
+
+    const updateUser = await usersRepository.save(updatedUser);
+
+    return response.json(updateUser);
+  }
 }
 
 export { UserController };

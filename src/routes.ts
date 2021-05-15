@@ -8,5 +8,6 @@ routes.post('/users', userController.create);
 routes.get('/users', userController.index);
 routes.get('/users/:id', userController.showByUser);
 routes.delete('/users/:id', userController.delete);
+routes.put('/users/:id', userController.update);
 
 export { routes };
