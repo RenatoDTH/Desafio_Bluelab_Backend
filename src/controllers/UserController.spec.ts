@@ -177,6 +177,15 @@ describe('UserController', () => {
       const response = await request(app).get(`/users/${user.body.id}`);
       expect(response.body.firstname).toBe('any_first_name');
     });
+
+    test('should return error if no user is found', async () => {
+      const response = await request(app).get('/users/any_id');
+      expect(response.statusCode).toBe(400);
+      expect(response.body).toStrictEqual({
+        message: 'Usuário não encontrado!',
+        success: false,
+      });
+    });
   });
 
   describe('Delete method', () => {
