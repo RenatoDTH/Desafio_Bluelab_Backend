@@ -103,6 +103,12 @@ class UserController {
       throw new AppError('Usuário não encontrado!');
     }
 
+    const isValid = validatePhone(phone);
+
+    if (!isValid) {
+      throw new AppError('Telefone Inválido');
+    }
+
     const updatedUser = {
       id: user.id,
       firstname: user.firstname,
