@@ -121,6 +121,28 @@ describe('UserController', () => {
         success: false,
       });
     });
+
+    test('should return 400 if there is a user with same cpf', async () => {
+      await request(app).post('/users').send({
+        firstname: 'any_first_name',
+        lastname: 'any_last_name',
+        phone: '2130212361',
+        cpf: '07921979092',
+      });
+
+      const response = await request(app).post('/users').send({
+        firstname: 'any_first_name',
+        lastname: 'any_last_name',
+        phone: '2130212362',
+        cpf: '07921979092',
+      });
+
+      expect(response.status).toBe(400);
+      expect(response.body).toStrictEqual({
+        message: 'CPF já existente!',
+        success: false,
+      });
+    });
   });
 
   describe('Index method', () => {
