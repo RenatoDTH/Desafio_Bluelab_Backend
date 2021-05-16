@@ -90,6 +90,15 @@ describe('UserController', () => {
       });
       expect(response.status).toBe(400);
     });
+
+    test('should return 400 if cpf is not provided', async () => {
+      const response = await request(app).post('/users').send({
+        firstname: 'any_first_name',
+        lastname: 'any_last_name',
+        phone: '2130212361',
+      });
+      expect(response.status).toBe(400);
+    });
   });
 
   describe('Index method', () => {
