@@ -55,6 +55,19 @@ describe('UserController', () => {
         success: false,
       });
     });
+
+    test('should return 400 if firstname is not provided', async () => {
+      const response = await request(app).post('/users').send({
+        lastname: 'any_last_name',
+        phone: '2130212361',
+        cpf: '07921979092',
+      });
+      expect(response.status).toBe(400);
+      expect(response.body).toStrictEqual({
+        message: 'Nome obrigatório',
+        success: false,
+      });
+    });
   });
 
   describe('Index method', () => {
