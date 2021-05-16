@@ -183,7 +183,7 @@ describe('UserController', () => {
       const response = await request(app).get('/users/any_id');
       expect(response.statusCode).toBe(400);
       expect(response.body).toStrictEqual({
-        message: 'Usuário não encontrado!',
+        message: 'Informações do usuário não armazenadas.',
         success: false,
       });
     });

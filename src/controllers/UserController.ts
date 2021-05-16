@@ -75,7 +75,7 @@ class UserController {
     const oneUser = await usersRepository.findOne(id);
 
     if (!oneUser) {
-      throw new AppError('Usuário não encontrado!');
+      throw new AppError('Informações do usuário não armazenadas.');
     }
 
     return response.status(200).json(oneUser);
