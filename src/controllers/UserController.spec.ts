@@ -96,4 +96,22 @@ describe('UserController', () => {
 
     expect(response.body).toBe('Usuário deletado com sucesso');
   });
+
+  test('should be able delete user', async () => {
+    const user = await request(app).post('/users').send({
+      firstname: 'any_first_name',
+      lastname: 'any_last_name',
+      phone: '2130212369',
+      cpf: '28946272031',
+    });
+
+    const response = await request(app).put(`/users/${user.body.id}`).send({
+      firstname: 'any_first_name',
+      lastname: 'any_last_name',
+      phone: '1130212462',
+      cpf: '07921979092',
+    });
+
+    expect(response.body).not.toBe(user.body);
+  });
 });
