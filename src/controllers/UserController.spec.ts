@@ -236,5 +236,23 @@ describe('UserController', () => {
         success: false,
       });
     });
+
+    test('should return 400 if phone is invalid', async () => {
+      const user = await request(app).post('/users').send({
+        firstname: 'any_first_name',
+        lastname: 'any_last_name',
+        phone: '2130212369',
+        cpf: '28946272031',
+      });
+
+      const response = await request(app).put(`/users/${user.body.id}`).send({
+        firstname: 'any_first_name',
+        lastname: 'any_last_name',
+        phone: '111111111',
+        cpf: '07921979092',
+      });
+
+      expect(response.statusCode).toBe(400);
+    });
   });
 });
