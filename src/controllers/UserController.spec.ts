@@ -15,6 +15,7 @@ describe('UserController', () => {
     await connection.dropDatabase();
     await connection.close();
   });
+
   test('should return 201 if user is created', async () => {
     const response = await request(app).post('/users').send({
       firstname: 'any_first_name',
@@ -25,6 +26,7 @@ describe('UserController', () => {
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('id');
   });
+
   test('should return 400 cpf is invalid', async () => {
     const response = await request(app).post('/users').send({
       firstname: 'any_first_name',
@@ -35,6 +37,20 @@ describe('UserController', () => {
     expect(response.status).toBe(400);
     expect(response.body).toStrictEqual({
       message: 'CPF Inválido',
+      success: false,
+    });
+  });
+
+  test('should return 400 phone is invalid', async () => {
+    const response = await request(app).post('/users').send({
+      firstname: 'any_first_name',
+      lastname: 'any_last_name',
+      phone: 'any_phone',
+      cpf: '07921979092',
+    });
+    expect(response.status).toBe(400);
+    expect(response.body).toStrictEqual({
+      message: 'Telefone Inválido',
       success: false,
     });
   });
