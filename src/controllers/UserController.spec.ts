@@ -25,4 +25,17 @@ describe('UserController', () => {
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('id');
   });
+  test('should return 400 cpf is invalid', async () => {
+    const response = await request(app).post('/users').send({
+      firstname: 'any_first_name',
+      lastname: 'any_last_name',
+      phone: '2130212361',
+      cpf: 'any_cpf',
+    });
+    expect(response.status).toBe(400);
+    expect(response.body).toStrictEqual({
+      message: 'CPF Inválido',
+      success: false,
+    });
+  });
 });
