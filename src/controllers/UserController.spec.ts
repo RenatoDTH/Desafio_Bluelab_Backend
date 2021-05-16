@@ -73,4 +73,15 @@ describe('UserController', () => {
     const response = await request(app).get('/users');
     expect(response.body.length).toBe(2);
   });
+
+  test('should be able to return the correct user', async () => {
+    const user = await request(app).post('/users').send({
+      firstname: 'any_first_name',
+      lastname: 'any_last_name',
+      phone: '2130212367',
+      cpf: '28946272031',
+    });
+    const response = await request(app).get(`/users/${user.body.id}`);
+    expect(response.body.firstname).toBe('any_first_name');
+  });
 });
