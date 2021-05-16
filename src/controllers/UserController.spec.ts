@@ -54,4 +54,23 @@ describe('UserController', () => {
       success: false,
     });
   });
+
+  test('should be able to return all users', async () => {
+    await request(app).post('/users').send({
+      firstname: 'any_first_name',
+      lastname: 'any_last_name',
+      phone: '2130212361',
+      cpf: '07921979092',
+    });
+
+    await request(app).post('/users').send({
+      firstname: 'any_first_name2',
+      lastname: 'any_last_name2',
+      phone: '2130212362',
+      cpf: '76643340047',
+    });
+
+    const response = await request(app).get('/users');
+    expect(response.body.length).toBe(2);
+  });
 });
