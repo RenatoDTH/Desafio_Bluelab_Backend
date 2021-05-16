@@ -176,6 +176,7 @@ describe('UserController', () => {
       });
       const response = await request(app).get(`/users/${user.body.id}`);
       expect(response.body.firstname).toBe('any_first_name');
+      expect(response.statusCode).toBe(200);
     });
 
     test('should return error if no user is found', async () => {
@@ -199,6 +200,7 @@ describe('UserController', () => {
       const response = await request(app).delete(`/users/${user.body.id}`);
 
       expect(response.body).toBe('Usuário deletado com sucesso');
+      expect(response.statusCode).toBe(200);
     });
   });
 
@@ -219,6 +221,20 @@ describe('UserController', () => {
       });
 
       expect(response.body).not.toBe(user.body);
+    });
+
+    test('should returns error if no user is find', async () => {
+      const response = await request(app).put('/users/any_id').send({
+        firstname: 'any_first_name',
+        lastname: 'any_last_name',
+        phone: '1130212462',
+        cpf: '07921979092',
+      });
+
+      expect(response.body).toStrictEqual({
+        message: 'Usuário não encontrado!',
+        success: false,
+      });
     });
   });
 });
