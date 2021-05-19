@@ -162,7 +162,7 @@ describe('UserController', () => {
       });
 
       const response = await request(app).get('/users');
-      expect(response.body.length).toBe(2);
+      expect(response.body.length).toBe(6);
     });
   });
 
