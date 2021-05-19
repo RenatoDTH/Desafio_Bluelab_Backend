@@ -60,7 +60,8 @@ E o [Jest](https://jestjs.io/pt-BR/) vai criar um banco de dados de testes e rea
 
 ## Swagger e requisições
 
-Além dos testes práticos e pelo jest, também está documentado os métodos através do link do [Swagger](https://app.swaggerhub.com/apis-docs/RenatoDTH/Bluelab_Desafio/1.0.0-oas3) onde poderá visualizar cada um das requisições da api. (Caso o site não abra, o html dele está na pasta public .)
+Além dos testes práticos e pelo jest, também está documentado os métodos através do link do
+<a href="https://app.swaggerhub.com/apis-docs/RenatoDTH/Bluelab_Desafio/1.0.0-oas3" target="_blank">Swagger</a> onde poderá visualizar cada um das requisições da api. ( Caso o site não abra, o html dele está na pasta public e pode ser vista <a href="https://htmlpreview.github.io/?https://github.com/RenatoDTH/Desafio_Bluelab_Backend/blob/master/src/public/SwaggerDocumentation.html" target="_blank">aqui</a> ).
 
 Entre as requisições temos o
 
