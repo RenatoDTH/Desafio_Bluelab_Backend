@@ -1,0 +1,190 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2021-05-19T16:59:14.122Z",
+  "__export_source": "insomnia.desktop.app:v2021.3.0",
+  "resources": [
+    {
+      "_id": "req_1dc43ffea1e04d00bb7200c4a449ac03",
+      "parentId": "wrk_d580e4860e924b3da21ef4c267f25e54",
+      "modified": 1621443521311,
+      "created": 1621104027990,
+      "url": "{{ _.baseURL }}/users",
+      "name": "CreateUsers",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"firstname\": \"Paulo\",\n\t\"lastname\": \"Almeida\",\n\t\"cpf\": \"81178900037\",\n\t\"phone\": \"11910347292\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_6ecef83365f2424ab4563349bfeddfa2"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1621118056375,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_d580e4860e924b3da21ef4c267f25e54",
+      "parentId": null,
+      "modified": 1621103998847,
+      "created": 1621103998847,
+      "name": "BlueLab",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_0af53bd683404f559de385d53e53c6cb",
+      "parentId": "wrk_d580e4860e924b3da21ef4c267f25e54",
+      "modified": 1621443524055,
+      "created": 1621116028924,
+      "url": "{{ _.baseURL }}/users/",
+      "name": "ListAllUsers",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1621118056350,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_07b4e32a14ae429bbd46933848a24493",
+      "parentId": "wrk_d580e4860e924b3da21ef4c267f25e54",
+      "modified": 1621443525609,
+      "created": 1621116393592,
+      "url": "{{ _.baseURL }}/users/b23c0ce5-52ae-4ab7-845c-fdd97d3e6fcd",
+      "name": "ListOneUser",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "cpf",
+          "value": "75429947008",
+          "description": "",
+          "id": "pair_7a15577dbbb24667a1b82f2bc4444512"
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1621118056337.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b63628fdd3f542ea88b365b0929dc432",
+      "parentId": "wrk_d580e4860e924b3da21ef4c267f25e54",
+      "modified": 1621443506045,
+      "created": 1621118056324,
+      "url": "{{ _.baseURL }}/users/0212963d-c782-410b-9a4a-cfdd5a81246b",
+      "name": "Delete",
+      "description": "",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1621118056325,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_5ca2f8304dc54ab3ad32e8391d68d58d",
+      "parentId": "wrk_d580e4860e924b3da21ef4c267f25e54",
+      "modified": 1621382278635,
+      "created": 1621117003096,
+      "url": "{{ _.baseURL }}/users/b23c0ce5-52ae-4ab7-845c-fdd97d3e6fcd",
+      "name": "Update",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"phone\": \"49972488820\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_7d58107002d54ee09d1ac24cadd68827"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1621117003096,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_19e13c8b5596e9533ba6bddf41903501526ae95d",
+      "parentId": "wrk_d580e4860e924b3da21ef4c267f25e54",
+      "modified": 1621104073520,
+      "created": 1621103999048,
+      "name": "Base Environment",
+      "data": { "baseURL": "localhost:3333" },
+      "dataPropertyOrder": { "&": ["baseURL"] },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1621103999048,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_19e13c8b5596e9533ba6bddf41903501526ae95d",
+      "parentId": "wrk_d580e4860e924b3da21ef4c267f25e54",
+      "modified": 1621103999051,
+      "created": 1621103999051,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_d243128fe30248eda9cf3aa95963d5df",
+      "parentId": "wrk_d580e4860e924b3da21ef4c267f25e54",
+      "modified": 1621103998850,
+      "created": 1621103998850,
+      "fileName": "BlueLab",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    }
+  ]
+}

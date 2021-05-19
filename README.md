@@ -60,7 +60,7 @@ E o [Jest](https://jestjs.io/pt-BR/) vai criar um banco de dados de testes e rea
 
 ## Swagger e requisições
 
-Além dos testes práticos e pelo jest, também está documentado os métodos através do link do [Swagger](https://app.swaggerhub.com/apis-docs/RenatoDTH/Bluelab_Desafio/1.0.0-oas3#/) onde poderá visualizar cada um das requisições da api.
+Além dos testes práticos e pelo jest, também está documentado os métodos através do link do [Swagger](https://app.swaggerhub.com/apis-docs/RenatoDTH/Bluelab_Desafio/1.0.0-oas3) onde poderá visualizar cada um das requisições da api. (Caso o site não abra, o html dele está na pasta public .)
 
 Entre as requisições temos o
 
@@ -151,3 +151,5 @@ Entre as requisições temos o
 - DELETE
 
   Recebendo o id como parâmetro de rota, ele simplesmente delta o usuário do banco de dados.
+
+Para estes testes em específico, ao longo do projeto, foi utilizado além dos testes, o [Insomnia](https://insomnia.rest/download) e seu arquivo está na pasta public para importação.
