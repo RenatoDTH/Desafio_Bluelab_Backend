@@ -1,68 +1,21 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
-import * as Yup from 'yup';
-import { validateCPF, validatePhone } from 'validations-br';
-import { UserRepository } from '../repositories';
-import { AppError } from '../errors/AppError';
+import { UserService } from '../services';
 
 class UserController {
-  async create(request: Request, response: Response) {
+  async create(request: Request, response: Response): Promise<Response> {
     const { firstname, lastname, phone, cpf } = request.body;
 
-    const data = {
-      firstname,
-      lastname,
-      phone,
-      cpf,
-    };
+    const userService = new UserService();
 
-    const schema = Yup.object().shape({
-      firstname: Yup.string().required('Nome obrigatório'),
-      lastname: Yup.string().required('Sobreneme obrigatório'),
-      cpf: Yup.string()
-        .required('CPF obrigatório')
-        .test('validação do cpf', 'CPF Inválido', value => validateCPF(value)),
-      phone: Yup.string()
-        .required('Telefone obrigatório')
-        .test('validação do telefone', 'Telefone Inválido', value =>
-          validatePhone(value),
-        ),
-    });
-
-    try {
-      await schema.validate(data, { abortEarly: false });
-    } catch (err) {
-      throw new AppError(err.message);
-    }
-
-    const usersRepository = getCustomRepository(UserRepository);
-    const phoneAlreadyExists = await usersRepository.findOne({
-      phone,
-    });
-
-    if (phoneAlreadyExists) {
-      throw new AppError('Telefone já existente!');
-    }
-
-    const cpfAlreadyExists = await usersRepository.findOne({
-      cpf,
-    });
-
-    if (cpfAlreadyExists) {
-      throw new AppError('CPF já existente!');
-    }
-
-    const user = usersRepository.create(data);
-
-    await usersRepository.save(user);
+    const user = await userService.create(firstname, lastname, phone, cpf);
 
     return response.status(201).json(user);
   }
 
   async index(request: Request, response: Response): Promise<Response> {
-    const usersRepository = getCustomRepository(UserRepository);
+    const userService = new UserService();
 
-    const userList = await usersRepository.find();
+    const userList = await userService.index();
 
     return response.status(200).json(userList);
   }
@@ -70,13 +23,9 @@ class UserController {
   async showByUser(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const usersRepository = getCustomRepository(UserRepository);
+    const userService = new UserService();
 
-    const oneUser = await usersRepository.findOne(id);
-
-    if (!oneUser) {
-      throw new AppError('Informações de CPF não armazenadas.');
-    }
+    const oneUser = await userService.showByUser(id);
 
     return response.status(200).json(oneUser);
   }
@@ -84,9 +33,9 @@ class UserController {
   async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const usersRepository = getCustomRepository(UserRepository);
+    const userService = new UserService();
 
-    await usersRepository.delete(id);
+    await userService.delete(id);
 
     return response.json('Usuário deletado com sucesso');
   }
@@ -95,31 +44,9 @@ class UserController {
     const { id } = request.params;
     const { phone } = request.body;
 
-    const usersRepository = getCustomRepository(UserRepository);
+    const userService = new UserService();
 
-    const user = await usersRepository.findOne(id);
-
-    if (!user) {
-      throw new AppError('Usuário não encontrado!');
-    }
-
-    const isValid = validatePhone(phone);
-
-    if (!isValid) {
-      throw new AppError('Telefone Inválido');
-    }
-
-    const updatedUser = {
-      id: user.id,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      phone,
-      cpf: user.cpf,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-    };
-
-    const updateUser = await usersRepository.save(updatedUser);
+    const updateUser = await userService.update(id, phone);
 
     return response.json(updateUser);
   }
