@@ -30,9 +30,12 @@ class UserService {
       lastname: Yup.string().required('Sobreneme obrigatório'),
       cpf: Yup.string()
         .required('CPF obrigatório')
+        .max(11, 'CPF só deve conter dígitos')
         .test('validação do cpf', 'CPF Inválido', value => validateCPF(value)),
       phone: Yup.string()
         .required('Telefone obrigatório')
+        .min(10, 'Telefone só deve conter dígitos')
+        .max(11, 'Telefone só deve conter dígitos')
         .test('validação do telefone', 'Telefone Inválido', value =>
           validatePhone(value),
         ),
@@ -88,31 +91,51 @@ class UserService {
   }
 
   async update(id: string, phone: string): Promise<User> {
-    const user = await this.usersRepository.findOne(id);
+    const schema = Yup.object().shape({
+      phone: Yup.string()
+        .required('Telefone obrigatório')
+        .min(10, 'Telefone só deve conter dígitos')
+        .max(11, 'Telefone só deve conter dígitos'),
+    });
 
-    if (!user) {
-      throw new AppError('Usuário não encontrado!');
+    try {
+      const user = await this.usersRepository.findOne(id);
+
+      if (!user) {
+        throw new AppError('Usuário não encontrado!');
+      }
+
+      const isValid = validatePhone(phone);
+
+      if (!isValid) {
+        throw new AppError('Telefone Inválido');
+      }
+      await schema.validate({ phone }, { abortEarly: false });
+
+      const phoneAlreadyExists = await this.usersRepository.findOne({
+        phone,
+      });
+
+      if (phoneAlreadyExists) {
+        throw new AppError('Telefone já existente!');
+      }
+
+      const updatedUser = {
+        id: user.id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        phone,
+        cpf: user.cpf,
+        created_at: user.created_at,
+        updated_at: user.updated_at,
+      };
+
+      const updateUser = await this.usersRepository.save(updatedUser);
+
+      return updateUser;
+    } catch (err) {
+      throw new AppError(err.message);
     }
-
-    const isValid = validatePhone(phone);
-
-    if (!isValid) {
-      throw new AppError('Telefone Inválido');
-    }
-
-    const updatedUser = {
-      id: user.id,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      phone,
-      cpf: user.cpf,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-    };
-
-    const updateUser = await this.usersRepository.save(updatedUser);
-
-    return updateUser;
   }
 }
 
