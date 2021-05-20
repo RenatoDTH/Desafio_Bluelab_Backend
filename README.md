@@ -26,16 +26,6 @@ ou
 yarn
 ```
 
-E depois rodar:
-
-```
-npm run dev
-ou
-yarn dev
-```
-
-Para rodar o servidor na porta 3333.
-
 ## Migrations
 
 Neste projeto foi utlizado o [TypeORM](https://typeorm.io/#/using-ormconfig) e é necessário rodar as migrations de forma que as tabelas possam ser criados no banco de dados
@@ -45,6 +35,18 @@ npm run typeorm migration:run
 ou
 yarn typeorm migration:run
 ```
+
+## Rodando a api
+
+Instalado as dependências e rodado as migrations, você pode simplesmente rodar:
+
+```
+npm run dev
+ou
+yarn dev
+```
+
+Para rodar o servidor na porta 3333.
 
 ## Testes
 
