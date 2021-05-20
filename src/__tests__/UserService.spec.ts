@@ -27,7 +27,7 @@ describe('UserController', () => {
       expect(response.body).toHaveProperty('id');
     });
 
-    test('should return 400 cpf is invalid', async () => {
+    test('should return 400 if cpf is invalid', async () => {
       const response = await request(app).post('/users').send({
         firstname: 'any_first_name',
         lastname: 'any_last_name',
@@ -41,16 +41,44 @@ describe('UserController', () => {
       });
     });
 
-    test('should return 400 phone is invalid', async () => {
+    test('should return 400 if cpf does not have properly length', async () => {
       const response = await request(app).post('/users').send({
         firstname: 'any_first_name',
         lastname: 'any_last_name',
-        phone: 'any_phone',
+        phone: '2130212361',
+        cpf: '079.219.790-92',
+      });
+      expect(response.status).toBe(400);
+      expect(response.body).toStrictEqual({
+        message: 'CPF só deve conter dígitos',
+        success: false,
+      });
+    });
+
+    test('should return 400 if phone is invalid', async () => {
+      const response = await request(app).post('/users').send({
+        firstname: 'any_first_name',
+        lastname: 'any_last_name',
+        phone: '11111111111',
         cpf: '07921979092',
       });
       expect(response.status).toBe(400);
       expect(response.body).toStrictEqual({
         message: 'Telefone Inválido',
+        success: false,
+      });
+    });
+
+    test('should return 400 if phone does not have properly length', async () => {
+      const response = await request(app).post('/users').send({
+        firstname: 'any_first_name',
+        lastname: 'any_last_name',
+        phone: '(21)30212361',
+        cpf: '07921979092',
+      });
+      expect(response.status).toBe(400);
+      expect(response.body).toStrictEqual({
+        message: 'Telefone só deve conter dígitos',
         success: false,
       });
     });
@@ -248,6 +276,24 @@ describe('UserController', () => {
         firstname: 'any_first_name',
         lastname: 'any_last_name',
         phone: '111111111',
+        cpf: '07921979092',
+      });
+
+      expect(response.statusCode).toBe(400);
+    });
+
+    test('should return 400 if phone does not have properly length', async () => {
+      const user = await request(app).post('/users').send({
+        firstname: 'any_first_name',
+        lastname: 'any_last_name',
+        phone: '2130212369',
+        cpf: '28946272031',
+      });
+
+      const response = await request(app).put(`/users/${user.body.id}`).send({
+        firstname: 'any_first_name',
+        lastname: 'any_last_name',
+        phone: '(21)30212369',
         cpf: '07921979092',
       });
 
